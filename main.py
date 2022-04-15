@@ -1,4 +1,3 @@
-from imp import reload
 import time
 
 import uvicorn
