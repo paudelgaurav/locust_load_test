@@ -1,13 +1,16 @@
-from locust import HttpUser, task, between
+from locust import TaskSet, HttpUser, task
+    
 
+class UserBehaviour(TaskSet):
     
-class PingUser(HttpUser):
-    wait_time = between(0.5, 2.5)
-    
-    @task
+    @task(1)
     def test_ping(self):
         self.client.get('/ping')
     
-    @task
+    @task(2)
     def test_slow_ping(self):
         self.client.get('/slow-ping')
+
+
+class WebsiteUser(HttpUser):
+    tasks = [UserBehaviour, ]
